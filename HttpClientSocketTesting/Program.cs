@@ -1,12 +1,23 @@
 ﻿using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace HttpClientSocketTesting
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Starting connections");
+            for (int i = 0; i < 10; i++)
+            {
+                using (var client = new HttpClient())
+                {
+                    var result = await client.GetAsync("http://aspnetmonsters.com");
+                    Console.WriteLine(result.StatusCode);
+                }
+            }
+            Console.WriteLine("Connections done");
         }
     }
 }
